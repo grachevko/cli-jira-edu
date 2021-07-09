@@ -14,6 +14,7 @@ import task.TaskAssignees
 import task.Tasks
 import task.console.TaskAssign
 import task.console.TaskCreate
+import task.console.TaskDelete
 import task.console.TaskList
 import user.Users
 import user.console.UserCreate
@@ -32,7 +33,8 @@ fun main(args: Array<String>) {
             7 to ProjectAssign(),
             8 to TaskCreate(),
             9 to TaskList(),
-            10 to TaskAssign(),
+            10 to TaskDelete(),
+            11 to TaskAssign(),
         )
     )
 
