@@ -1,4 +1,7 @@
 import console.Resolver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
@@ -21,7 +24,7 @@ import user.console.UserCreate
 import user.console.UserDelete
 import user.console.UserList
 
-fun main(args: Array<String>) {
+fun main(args: Array<String>) = runBlocking {
     val resolver = Resolver(
         mapOf(
             1 to UserCreate(),
@@ -54,6 +57,12 @@ fun main(args: Array<String>) {
         )
     }
 
+    withContext(Dispatchers.Default) {
+        loop(resolver)
+    }
+}
+
+fun loop(resolver: Resolver) {
     while (true) {
         println("Список доступных команд:\n${resolver.list()} \n\nВведите команду")
 
