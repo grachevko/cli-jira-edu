@@ -1,5 +1,7 @@
 import console.Resolver
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
@@ -55,10 +57,12 @@ fun main(args: Array<String>) = runBlocking {
         )
     }
 
-     loop(resolver)
+    withContext(Dispatchers.Default) {
+        loop(resolver)
+    }
 }
 
-suspend fun loop(resolver: Resolver) {
+fun loop(resolver: Resolver) {
     while (true) {
         println("Список доступных команд:\n${resolver.list()} \n\nВведите команду")
 
